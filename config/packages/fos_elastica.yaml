@@ -1,0 +1,30 @@
+fos_elastica:
+    clients:
+        default: { host: "%env(resolve:ELASTICSEARCH_HOST)%", port: "%env(resolve:ELASTICSEARCH_PORT)%" }
+    serializer:
+        serializer: jms_serializer
+    indexes:
+        people:
+            index_name: people_%kernel.environment%
+            client: default
+            types:
+                person:
+                    dynamic: strict
+                    serializer:
+                        groups: [elastica]
+                        serialize_null: true
+                    properties:
+                        id: {type: integer}
+                        firstName: {type: text}
+                        lastName: {type: text}
+                        identityNumber: {type: text}
+                        emailAddress: {type: text}
+                        phoneNumber: {type: text}
+                    persistence:
+                        driver: orm
+                        model: App\Entity\Person
+                        provider: ~
+                        finder: ~
+                        listener:
+                            defer: true
+                            logger: true

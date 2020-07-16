@@ -1,0 +1,15 @@
+nelmio_api_doc:
+    documentation:
+        info:
+            title: Elasticsearch DEMO
+            description: This is a demo app!
+            version: 1.0.0
+        securityDefinitions: ~
+        security: ~
+    areas:
+        default:
+            path_patterns: [ ^/v./(?!doc/{area}$) ]
+        v1:
+            path_patterns: [ ^/v1 ]
+        v2:
+            path_patterns: [ ^/v2 ]
